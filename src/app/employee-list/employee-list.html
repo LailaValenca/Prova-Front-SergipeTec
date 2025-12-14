@@ -1,0 +1,62 @@
+<nav class="navbar">
+  <div class="navbar-content">
+    <div class="navbar-search">
+      <input 
+        type="text" 
+        placeholder="Buscar por nome..."
+        [(ngModel)]="searchQuery"
+        (keyup.enter)="onSearch()"
+        class="navbar-input"
+      />
+      <button (click)="onSearch()" class="btn btn-search">Buscar</button>
+      <button *ngIf="searchQuery" (click)="clearSearch()" class="btn btn-clear">Limpar</button>
+    </div>
+    <a routerLink="/employees/new" class="btn btn-primary">+ Novo Funcionário</a>
+  </div>
+</nav>
+
+<div class="container">
+  <h1 class="page-title">Lista de Funcionários</h1>
+  
+  <div *ngIf="errorMessage" class="alert alert-error">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    Carregando...
+  </div>
+
+  <table *ngIf="showTable && !loading && employees.length > 0" class="employees-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Cargo</th>
+        <th>Status</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of employees">
+        <td>{{ employee.id }}</td>
+        <td>{{ employee.name }}</td>
+        <td>{{ employee.email }}</td>
+        <td>{{ employee.role }}</td>
+        <td>
+          <span [class.active]="employee.active" [class.inactive]="!employee.active">
+            {{ employee.active ? 'Ativo' : 'Inativo' }}
+          </span>
+        </td>
+        <td>
+          <a [routerLink]="['/employees/edit', employee.id]" class="btn btn-sm btn-edit">Editar</a>
+          <button (click)="deleteEmployee(employee.id)" class="btn btn-sm btn-delete">Deletar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="showTable && !loading && employees.length === 0" class="no-data">
+    Nenhum funcionário encontrado.
+  </div>
+</div>
