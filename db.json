@@ -1,0 +1,18 @@
+{
+  "employees": [
+    {
+      "id": "1",
+      "name": "Ana",
+      "email": "ana@empresa.com",
+      "role": "Dev",
+      "active": true
+    },
+    {
+      "id": "2",
+      "name": "Bruno",
+      "email": "bruno@empresa.com",
+      "role": "QA",
+      "active": true
+    }
+  ]
+}
